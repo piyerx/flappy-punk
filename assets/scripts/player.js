@@ -23,6 +23,7 @@ class Player {
             this.y = this.game.height - this.height;
         }
     }
+    
     resize(){
         this.width = this.spriteWidth * this.game.ratio;
         this.height = this.spriteHeight * this.game.ratio;
