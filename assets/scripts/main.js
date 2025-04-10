@@ -9,10 +9,10 @@ class Game {
         this.player = new Player(this);
         this.background = new Background(this);
         this.obstacles = [];
-        this.numberOfObstacles = 10;
+        this.numberOfObstacles = 20;
         this.gravity;
         this.speed; //speed of side scrolling
-
+        this.score; this.gameOver;
         this.resize(window.innerWidth, window.innerHeight);
 
         window.addEventListener('resize', e => {
@@ -46,11 +46,13 @@ class Game {
         this.background.resize();
         this.gravity = 0.15 * this.ratio;
         this.player.resize();
-        this.speed = 1.5 * this.ratio;
+        this.speed = 20 * this.ratio;
         this.createObstacles();
         this.obstacles.forEach(obstacle => {
             obstacle.resize();
         });
+        this.score = 0;
+        this.gameOver = false;
     }
     render(){
         this.background.update();
@@ -84,7 +86,7 @@ window.addEventListener('load', function(){
     function animate(){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         game.render();
-        requestAnimationFrame(animate);
+        if(!game.gameOver)requestAnimationFrame(animate);
     }
     requestAnimationFrame(animate);
 });

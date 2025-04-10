@@ -6,8 +6,12 @@ class Obstacle {
         this.scaledWidth = this.spriteWidth * this.game.ratio;
         this.scaledHeight = this.spriteHeight * this.game.ratio;
         this.x = x;
-        this.y = this.game.height * 0.5 - this.scaledHeight;
-        this.speedY = 2;
+        this.y = Math.random() * (this.game.height - this.scaledHeight);
+        this.speedY = Math.random() < 0.5? -1*this.game.ratio : 1*this.game.ratio; 
+        // v This will randomly decide if the obstacle will go up or down
+        this.game.ratio;
+        this.markedForDeletion = false; 
+        //This will be used to delete the obstacle when it goes off the screen
     }
 
     update(){
@@ -18,6 +22,15 @@ class Obstacle {
         if(this.y <=0 || this.y >= this.game.height - this.scaledHeight){
             this.speedY *= -1;
         }
+        if(this.isOffScreen()){
+            this.markedForDeletion = true;
+            this.game.obstacles = this.game.obstacles.filter(obstacle => !obstacle.markedForDeletion);
+            //This will delete the obstacle from the array of obstacles   
+        }
+        if(this.game.obstacles.length <= 0){
+            this.game.gameOver = true;
+            //This will end the game when there are no obstacles left on the canvas
+        }
     }
 
     draw(){
@@ -27,6 +40,9 @@ class Obstacle {
     resize(){
         this.scaledHeight = this.spriteHeight * this.game.ratio;
         this.scaledWidth = this.spriteWidth * this.game.ratio;
+    }
+    isOffScreen(){
+        return this.x < 0;
     }
 
 }
