@@ -29,7 +29,9 @@ class Player {
         this.height = this.spriteHeight * this.game.ratio;
         this.y = this.game.height * 0.5 - this.height * 0.5;
         this.speedY = -8 * this.game.ratio;
+        //This will make the player jump when the spacebar is pressed
         this.flapSpeed = 5 * this.game.ratio;
+        
     }
     isTouchingTop(){
         return this.y <= 0;

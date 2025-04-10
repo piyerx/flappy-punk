@@ -26,6 +26,8 @@ class Obstacle {
             this.markedForDeletion = true;
             this.game.obstacles = this.game.obstacles.filter(obstacle => !obstacle.markedForDeletion);
             //This will delete the obstacle from the array of obstacles   
+            this.game.score++;
+            //This will increase the score when an obstacle is deleted
         }
         if(this.game.obstacles.length <= 0){
             this.game.gameOver = true;
@@ -42,7 +44,7 @@ class Obstacle {
         this.scaledWidth = this.spriteWidth * this.game.ratio;
     }
     isOffScreen(){
-        return this.x < 0;
+        return this.x < -this.scaledWidth;
     }
 
 }

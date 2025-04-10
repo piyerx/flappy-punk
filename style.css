@@ -2,7 +2,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Share Tech Mono", monospace;
 }
+
 #canvas1 {
     position: absolute;
     top: 0;
@@ -14,4 +16,10 @@
 
 .assets{
     display: none;
+}
+
+.share-tech-mono-regular {
+    font-family: "Share Tech Mono", monospace;
+    font-weight: 400;
+    font-style: normal;
 }
