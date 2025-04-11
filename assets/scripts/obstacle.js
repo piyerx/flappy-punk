@@ -12,6 +12,8 @@ class Obstacle {
         this.game.ratio;
         this.markedForDeletion = false; 
         //This will be used to delete the obstacle when it goes off the screen
+        this.collisionX; this.collisionY;
+        this.collisionRadius = this.scaledWidth * 0.5;
     }
 
     update(){
@@ -22,6 +24,9 @@ class Obstacle {
         if(this.y <=0 || this.y >= this.game.height - this.scaledHeight){
             this.speedY *= -1;
         }
+        this.collisionX = this.x + this.scaledWidth * 0.5; //To draw the collision circle at the center of the obstacle
+        this.collisionY = this.y + this.scaledHeight * 0.5;
+        
         if(this.isOffScreen()){
             this.markedForDeletion = true;
             this.game.obstacles = this.game.obstacles.filter(obstacle => !obstacle.markedForDeletion);
@@ -37,6 +42,9 @@ class Obstacle {
 
     draw(){
         this.game.ctx.fillRect(this.x, this.y, this.scaledWidth, this.scaledHeight);
+        this.game.ctx.beginPath();
+        this.game.ctx.arc(this.collisionX, this.collisionY, this.collisionRadius, 0, Math.PI * 2);
+        this.game.ctx.stroke();
     }
 
     resize(){

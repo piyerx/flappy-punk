@@ -9,7 +9,7 @@ class Game {
         this.player = new Player(this);
         this.background = new Background(this);
         this.obstacles = [];
-        this.numberOfObstacles = 1;
+        this.numberOfObstacles = 10;
         this.gravity;
         this.speed; //speed of side scrolling
         this.score; this.gameOver; this.timer;
@@ -42,6 +42,8 @@ class Game {
         this.ctx.fillStyle = 'green';
         this.ctx.font = '20px Share Tech Mono';
         this.ctx.textAlign = 'right';
+        this.ctx.strokeStyle = 'yellow'; //This will make the collision circle red
+        this.ctx.lineWidth = 2 * this.ratio; //This will make the collision circle thicker
         this.width = this.canvas.width;
         this.height = this.canvas.height;
         this.ratio = this.height / this.baseHeight;
