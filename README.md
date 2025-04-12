@@ -1,12 +1,12 @@
 # Flappy Punk 🎮
 
-A cyberpunk-themed take on the classic Flappy Bird game, currently under development.
+A steampunk-themed take on the classic Flappy Bird game, currently under development.
 
 ## 🚧 Project Status
 This project is actively being developed. Features and gameplay mechanics are still being implemented and refined.
 
 ## 📝 Description
-Flappy Punk is a browser-based game that combines the addictive gameplay mechanics of Flappy Bird with a cyberpunk aesthetic. Navigate through a neon-lit cityscape while avoiding obstacles.
+Flappy Punk is a browser-based game that combines the addictive gameplay mechanics of Flappy Bird with a cyberpunk aesthetic.
 
 ## 🎯 Features
 - Responsive canvas-based gameplay
@@ -31,7 +31,6 @@ Flappy Punk is a browser-based game that combines the addictive gameplay mechani
 3. Start playing!
 
 ## 🔜 Upcoming Features
-- Score system
 - Sound effects
 - High score tracking
 - Additional visual effects
