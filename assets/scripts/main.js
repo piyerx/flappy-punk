@@ -12,6 +12,7 @@ class Game {
         this.numberOfObstacles = 10;
         this.gravity;
         this.speed; //speed of side scrolling
+        this.maxSpeed; this.minSpeed;
         this.score; this.gameOver; this.timer;
         this.resize(window.innerWidth, window.innerHeight);
         this.msg1; this.msg2;
@@ -29,6 +30,8 @@ class Game {
         window.addEventListener('keydown', e => {
             if(e.key == ' ' || e.key == 'Enter' || e.key == 'ArrowUp')
                 this.player.flap();
+            if(e.key == 'Shift')
+                this.player.startCharge();
             })
 
         //Touch Controls
@@ -40,10 +43,10 @@ class Game {
     resize(width, height){
         this.canvas.width = width;
         this.canvas.height = height;
-        this.ctx.fillStyle = 'green';
+        this.ctx.fillStyle = 'purple';
         this.ctx.font = '20px Share Tech Mono';
         this.ctx.textAlign = 'right';
-        this.ctx.strokeStyle = 'yellow'; //This will make the collision circle red
+        this.ctx.strokeStyle = 'yellow'; //This will make the collision circle yellow
         this.ctx.lineWidth = 2 * this.ratio; //This will make the collision circle thicker
         this.width = this.canvas.width;
         this.height = this.canvas.height;
@@ -51,7 +54,9 @@ class Game {
         this.background.resize();
         this.gravity = 0.15 * this.ratio;
         this.player.resize();
-        this.speed = 1 * this.ratio; 
+        this.speed = 2 * this.ratio; 
+        this.minSpeed = this.ratio;
+        this.maxSpeed = 5 * this.ratio;
         this.createObstacles();
         this.obstacles.forEach(obstacle => {
             obstacle.resize();
@@ -62,11 +67,15 @@ class Game {
     }
     render(deltaTime){
         // console.log(deltaTime);
-        if(!this.gameOver)this.timer += deltaTime; 
+        if(!this.gameOver)
+            this.timer += deltaTime;
+            else {
+                this.speed = 0;
+            }
         //This will increase the timer every frame
         this.background.update();
         this.background.draw();
-        this.drawStatusText();
+        
         this.player.update();
         this.player.draw();
         this.obstacles.forEach(obstacle => {
@@ -74,6 +83,7 @@ class Game {
             obstacle.update();
             obstacle.draw();
         });
+        this.drawStatusText();
     }
     createObstacles(){
         this.obstacles = [];
@@ -94,7 +104,7 @@ class Game {
 
     formatTimer(time){
         return (this.timer*0.001).toFixed(2); 
-        //This will convert the timer from milliseconds to seconds
+        //This will convert the timer from milliseconds to seconds upto 2 decimal places
     }
   
     drawStatusText(){
@@ -110,7 +120,7 @@ class Game {
                 this.msg1 = 'Skill Issues lol';
                 this.msg2 = 'Collision time = ' + this.formatTimer() + 's.';
             } else if(this.obstacles.length <= 0){ //Player Wins
-                this.msg1 = 'Nice Skills!';
+                this.msg1 = '(' + this.score + ') Nice Skills!';
                 this.msg2 = 'Now try doing it faster than ' + this.formatTimer() + 's?';
             }
             this.ctx.textAlign = 'center';
@@ -120,6 +130,20 @@ class Game {
             this.ctx.font = '20px Share Tech Mono';
             this.ctx.fillText('Press Enter to Restart', this.width * 0.5, this.height * 0.5 + 15); 
         }
+        if(this.player.energy <= 20) this.ctx.fillStyle = 'red';
+        else if (this.player.energy > 20 && this.player.energy < this.player.maxEnergy) this.ctx.fillStyle = 'orange';
+        else this.ctx.fillStyle = 'green';
+        for(let i = 0; i < this.player.energy; i++){
+            this.ctx.fillRect(10 + i * 4, 50, 5, 10); //This will draw the energy bar
+        }
+        
+        this.ctx.save();
+        this.ctx.textAlign = 'center';
+        this.ctx.fillStyle = 'white';
+        this.ctx.font = '15px Share Tech Mono';
+        this.ctx.fillText('JUMP: Click/Space/UpArrow/Tap | BOOST: Shift/', this.width * 0.5, this.height - 20);
+        
+        this.ctx.restore();
     }
 }
 
