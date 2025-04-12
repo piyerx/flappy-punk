@@ -106,11 +106,19 @@ class Game {
         //This will display the timer on the canvas
         this.ctx.restore();
         if(this.gameOver){
+            if(this.player.collided){ //Player Loses
+                this.msg1 = 'Skill Issues lol';
+                this.msg2 = 'Collision time = ' + this.formatTimer() + 's.';
+            } else if(this.obstacles.length <= 0){ //Player Wins
+                this.msg1 = 'Nice Skills!';
+                this.msg2 = 'Now try doing it faster than ' + this.formatTimer() + 's?';
+            }
             this.ctx.textAlign = 'center';
             this.ctx.font = '30px Share Tech Mono';
-            this.ctx.fillText('Game Over!', this.width * 0.5, this.height * 0.5);
+            this.ctx.fillText(this.msg1, this.width * 0.5, this.height * 0.5 - 50);
+            this.ctx.fillText(this.msg2, this.width * 0.5, this.height * 0.5 -15);
             this.ctx.font = '20px Share Tech Mono';
-            this.ctx.fillText('Press Enter to Restart', this.width * 0.5, this.height * 0.5 + 30); 
+            this.ctx.fillText('Press Enter to Restart', this.width * 0.5, this.height * 0.5 + 15); 
         }
     }
 }
