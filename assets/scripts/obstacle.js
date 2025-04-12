@@ -34,6 +34,13 @@ class Obstacle {
             this.game.score++;
             //This will increase the score when an obstacle is deleted
         }
+
+        if(this.game.checkCollision(this, this.game.player)){
+            this.game.gameOver = true;
+            this.game.player.collided = true;
+            //This will end the game when the player collides with an obstacle
+        }
+
         if(this.game.obstacles.length <= 0){
             this.game.gameOver = true;
             //This will end the game when there are no obstacles left on the canvas

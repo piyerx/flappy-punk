@@ -14,6 +14,7 @@ class Game {
         this.speed; //speed of side scrolling
         this.score; this.gameOver; this.timer;
         this.resize(window.innerWidth, window.innerHeight);
+        this.msg1; this.msg2;
 
         window.addEventListener('resize', e => {
             this.resize(e.currentTarget.innerWidth, e.currentTarget.innerHeight);
@@ -50,7 +51,7 @@ class Game {
         this.background.resize();
         this.gravity = 0.15 * this.ratio;
         this.player.resize();
-        this.speed = 1 * this.ratio;
+        this.speed = 1 * this.ratio; 
         this.createObstacles();
         this.obstacles.forEach(obstacle => {
             obstacle.resize();
@@ -82,18 +83,20 @@ class Game {
             this.obstacles.push(new Obstacle(this, firstX + i * obstacleSpacing));
         }
     }
+
+    checkCollision(a, b){
+        const dx = a.collisionX - b.collisionX;
+        const dy = a.collisionY - b.collisionY;
+        const distance = Math.hypot(dx,dy) //This will calculate the distance between the two objects
+        const sumOfRadii = a.collisionRadius + b.collisionRadius;
+        return distance <= sumOfRadii; //This will return true if the distance is less than the sum of the radii (collision is true)
+    }
+
     formatTimer(time){
         return (this.timer*0.001).toFixed(2); 
         //This will convert the timer from milliseconds to seconds
     }
-    // checkCollisions(){
-    //     this.obstacles.forEach(obstacle => {
-    //         if(this.player.isTouching(obstacle)){
-    //             this.gameOver = true;
-    //         }
-    //     });
-    // }
-
+  
     drawStatusText(){
         this.ctx.save();
         this.ctx.fillText('Score: ' + this.score, this.width-10, 30); 

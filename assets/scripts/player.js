@@ -40,6 +40,7 @@ class Player {
         this.flapSpeed = 5 * this.game.ratio;
         this.collisionRadius = this.width * 0.5;
         this.collisionX = this.x + this.width * 0.5;
+        this.collided = false;
         
     }
     isTouchingTop(){
